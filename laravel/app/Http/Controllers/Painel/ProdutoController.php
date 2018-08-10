@@ -11,24 +11,33 @@
       private $produtos;
 
       public function __construct(Produtos $produtos) {
+          
           $this->produtos = $produtos;
       }
 
 //constutor que pode ser usado em qualquer classe do controler
 
       public function index() {
+
+          $title = 'Listagem de Produtos';
+
           $product = $this->produtos->all();
 
-          return view('painel.produto.index', compact('product'));
+          return view('painel.produto.index', compact('product', 'title'));
       }
 
-      /**
+      /** 
        * Show the form for creating a new resource.
        *
        * @return \Illuminate\Http\Response
        */
       public function create() {
-          //
+          
+          $title = 'Cadastro de Produto';
+          
+          $category = ['eletronicos', 'moveis', 'limpeza', 'banho'];
+          
+          return view('painel.produto.create',compact('title', 'category'));
       }
 
       /**
@@ -84,19 +93,19 @@
 
       public function tests() {
 
-   //---------------deletar dados item----------------
-/*
-          $delete = $this->produtos
-                  ->where('number','=' ,12541)
-                  ->delete();
-          if ($delete)
-              return 'Deletado com sucesso.';
-          else
-              return 'erro ao deletar.';
------------------------------------------------------
-          //$prod = $this->produtos->destroy(7); 
-------------------------------------------------------
-           $prod = $this->produtos->find(7);
+          //---------------deletar dados item----------------
+          /*
+            $delete = $this->produtos
+            ->where('number','=' ,12541)
+            ->delete();
+            if ($delete)
+            return 'Deletado com sucesso.';
+            else
+            return 'erro ao deletar.';
+            -----------------------------------------------------
+            //$prod = $this->produtos->destroy(7);
+            ------------------------------------------------------
+            $prod = $this->produtos->find(7);
             $delete = $prod->delete();
             if($delete)
             return 'Deletado com sucesso.';
@@ -119,7 +128,7 @@
             } else {
             return 'falha ao inserir';
             }
----------------------------------------------------
+            ---------------------------------------------------
             $prod = $this->produtos->find(6);
             $prod->name = 'Palmolivre';
             $prod->number = 51;
@@ -131,9 +140,9 @@
             return "alterado com sucesso ";
             else
             return 'falha ao alterar';
-------------------------------------------------------------------
+            ------------------------------------------------------------------
             //dd($prod);//debug laravel - var_dump($prod[0]);echo $prod[0];
-------------------------------------------------------------------
+            ------------------------------------------------------------------
             inserir dados
            * $insert = $this->produtos->create([
             'name'        => 'sabonete',
