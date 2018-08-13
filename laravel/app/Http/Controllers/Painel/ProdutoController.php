@@ -12,7 +12,11 @@
       private $produtos;
 
       public function __construct(Produtos $produtos) {
+<<<<<<< HEAD
 
+=======
+          
+>>>>>>> remotes/origin/master
           $this->produtos = $produtos;
       }
 
@@ -27,18 +31,27 @@
           return view('painel.produto.index', compact('product', 'title'));
       }
 
-      /**
+      /** 
        * Show the form for creating a new resource.
        *
        * @return \Illuminate\Http\Response
        */
       public function create() {
+<<<<<<< HEAD
 
           $title = 'Cadastro de Produto';
 
           $category = ['eletronicos', 'moveis', 'limpeza', 'banho'];
 
           return view('painel.produto.create-edit', compact('title', 'category'));
+=======
+          
+          $title = 'Cadastro de Produto';
+          
+          $category = ['eletronicos', 'moveis', 'limpeza', 'banho'];
+          
+          return view('painel.produto.create',compact('title', 'category'));
+>>>>>>> remotes/origin/master
       }
 
       /**

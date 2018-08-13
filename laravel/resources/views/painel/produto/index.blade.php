@@ -24,7 +24,11 @@
             <td>{{$produto->name}}</td>
             <td>{{$produto->description}}</td>
             <td>
+<<<<<<< HEAD
                 <a href="{{route('produtos.edit', $produto->id)}}" class=" actions edit">
+=======
+                <a href="" class=" actions edit">
+>>>>>>> remotes/origin/master
                     <i class="fas fa-pencil-alt"></i>
                 </a>
                 <a href="" class="actions  delete">
