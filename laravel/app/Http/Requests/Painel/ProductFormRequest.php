@@ -35,9 +35,11 @@ class ProductFormRequest extends FormRequest
         
         return [
             'name.required'=>'O campo nome é de preenchimento obrigatorio',
+            'name.min'=>'O campo nome deve conter ao menos 3 letras',
             'number.numeric'=>'O campo numero aceita somente numeros',
             'number.required'=>'O campo numero é de preenchimento obrigatorio',
             'category.required'=>'Deve ser selecionada uma categoria',
+            //'descripton.min'=>'O campo descrição deve conter ao menos 3 letras',
         ];
         
         

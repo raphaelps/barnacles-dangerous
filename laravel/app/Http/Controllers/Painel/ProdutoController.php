@@ -10,13 +10,11 @@
   class ProdutoController extends Controller {
 
       private $produtos;
-
+      
+      private $totalPage = 5 ;
+      
       public function __construct(Produtos $produtos) {
-<<<<<<< HEAD
 
-=======
-          
->>>>>>> remotes/origin/master
           $this->produtos = $produtos;
       }
 
@@ -26,7 +24,7 @@
 
           $title = 'Listagem de Produtos';
 
-          $product = $this->produtos->all();
+          $product = $this->produtos->paginate($this->totalPage);
 
           return view('painel.produto.index', compact('product', 'title'));
       }
@@ -37,23 +35,12 @@
        * @return \Illuminate\Http\Response
        */
       public function create() {
-<<<<<<< HEAD
-
+          
           $title = 'Cadastro de Produto';
 
           $category = ['eletronicos', 'moveis', 'limpeza', 'banho'];
 
-          return view('painel.produto.create-edit', compact('title', 'category'));
-=======
-          
-          $title = 'Cadastro de Produto';
-          
-          $category = ['eletronicos', 'moveis', 'limpeza', 'banho'];
-          
-          return view('painel.produto.create',compact('title', 'category'));
->>>>>>> remotes/origin/master
-      }
-
+          return view('painel.produto.create-edit', compact('title', 'category'));     }
       /**
        * Store a newly created resource in storage.
        *
@@ -63,20 +50,8 @@
       public function store(ProductFormRequest $request) {
 
           $dataForm = $request->all(); //pega todos os dados do formulario
-          // if ($dataForm['active']=='' || $dataForm['active']==null ) 
+          
           $dataForm['active'] = (!isset($dataForm['active'])) ? 0 : 1;
-/*
-          //$this->validate($request, $this->produtos->rules);
-
-          $validate = validator($dataForm, $this->produtos->rules, $messages);
-          if ($validate->fails()) {
-              return redirect()
-                              ->route('produtos.create')
-                              ->withErrors($validate)
-                              ->withInput();
-          }*/
-
-
           //faz o cadastro no banco
           $insert = $this->produtos->create($dataForm);
           
@@ -86,8 +61,20 @@
           else
               return redirect()->route('produtos.create'); //se deu erro retorna para a pagina de cadastro
 
-              
-//dd($request->only(['name', 'number']));//pega apenas os dados especificados no array
+/*
+ * 
+ *          // if ($dataForm['active']=='' || $dataForm['active']==null ) 
+          //$this->validate($request, $this->produtos->rules);
+
+          $validate = validator($dataForm, $this->produtos->rules, $messages);
+          if ($validate->fails()) {
+              return redirect()
+                              ->route('produtos.create')
+                              ->withErrors($validate)
+                              ->withInput();
+          }*/
+         
+            //dd($request->only(['name', 'number']));//pega apenas os dados especificados no array
           //dd($request->except());//pega todos os dados exceto os dados passados como parametro
       }
 
@@ -98,7 +85,12 @@
        * @return \Illuminate\Http\Response
        */
       public function show($id) {
-          //
+          
+          $product = $this->produtos->find($id);
+          
+          $title = "Produto: {$product->name}";
+          
+          return view('painel.produto.show', compact('title', 'product'));
       }
 
       /**
@@ -151,7 +143,12 @@
        * @return \Illuminate\Http\Response
        */
       public function destroy($id) {
-          //
+          $prod = $this->produtos->find($id);
+            $delete = $prod->delete();
+            if ($delete)
+              return redirect()->route('produtos.index'); //se deu certo retorna para a pagina principal
+          else
+              return redirect()->route('produtos.show', $id)->with(['errors'=>'Falha ao deletar']);
       }
 
       public function tests() {

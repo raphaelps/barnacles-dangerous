@@ -1,6 +1,5 @@
-
-
 @extends('painel.template.template') <!-- chamar template -->
+
 <!-- essa parte vai ser inserida no local do template onde esta o content -->
 @section('content') <!-- abrir seção para uso -->
 
@@ -19,25 +18,22 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($product as $produto)
+        @foreach ($product as $prod)
         <tr>
-            <td>{{$produto->name}}</td>
-            <td>{{$produto->description}}</td>
+            <td>{{$prod->name}}</td>
+            <td>{{$prod->description}}</td>
             <td>
-<<<<<<< HEAD
-                <a href="{{route('produtos.edit', $produto->id)}}" class=" actions edit">
-=======
-                <a href="" class=" actions edit">
->>>>>>> remotes/origin/master
+                <a href="{{route('produtos.edit', $prod->id)}}" class="actions edit">
                     <i class="fas fa-pencil-alt"></i>
                 </a>
-                <a href="" class="actions  delete">
-                    <i class="fas fa-trash-alt"></i>
+                <a href="{{route('produtos.show', $prod->id)}}" class="actions  delete">
+                    <i class="fas fa-eye"></i>
                 </a>
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
+{!! $product->links() !!}
 
 @endsection <!-- fecha seção em uso -->
